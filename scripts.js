@@ -1,34 +1,69 @@
-const RichardLancaster = Object.create({}, {
-  firstName: {
-    value: "Richard",
-    enumerable: true
-  },
-  lastName: {
-    value: "Lancaster",
-    enumerable: true
-  },
-  dateOfBirth: {
-    value: "July 30, 1972",
-    enumerable: true,
-  },
-  placeOfBirth: {
-    value: "Tallahassee, FL",
-    enumerable: true
-  },
-  currentCityOfResidence: {
-    value: "Nashville",
+const FinancialAdvisor = Object.create({}, {
+  company: {
+    value: "Raymond James",
     enumerable: true,
     writable: true
   },
-  currentStateOfResidence: {
-    value: "Tennessee",
+  specialty: {
+    value: "Personal Finance",
     enumerable: true,
     writable: true
   },
-  toString: {
-    value: function () {
-      const description = `${this.firstName} ${this.lastName} was born in ${this.placeOfBirth}. He was born on ${this.dateOfBirth}. He currently lives in ${this.currentCityOfResidence}, ${this.currentStateOfResidence}.`
-      return description
+  name: {
+    value: "Suzanne Bradford",
+    enumerable: true
+  },
+
+  portfolio: {
+    value: [
+      {
+        stock: "TWTR",
+        quantity: 100,
+        price: 30.00,
+        buyTransaction: true
     }
+    ]
+  },
+
+  worth: {
+    value: function () {
+      let totalWorth = 0
+      for (let i = 0; i < this.portfolio.length; i++) {
+        if (this.portfolio[i].buyTransaction === true) {
+          totalWorth += this.portfolio[i].quantity * this.portfolio[i].price
+        } else if (this.portfolio[i].buyTransaction === false) {
+          totalWorth -= this.portfolio[i].quantity * this.portfolio[i].price
+        }
+      }
+      return `The total worth of this portfolio is $${totalWorth.toFixed(2)}.`
+      },
+      enumerable: false
+    },
+
+  purchase: {
+    value: function (ticker, quantity, price) {
+      let newStock = {
+        ticker = ticker,
+        quantity = quantity,
+        price = price,
+        buyTransaction = true
+      }
+      this.portfolio.push(newStock)
+    },
+    enumerable: false
+  },
+
+  sell: {
+    value: function (ticker, quantity, price) {
+      let newStock = {
+        ticker = ticker,
+        quantity = quantity,
+        price = price,
+        buyTransaction = false
+      }
+      this.portfolio.push(newStock)
+    },
+    enumerable: false
   }
+
 })
